@@ -26,6 +26,7 @@ include = ["src/defaultpython"]
 [tool.coverage.run]
 source = ["src"]
 branch = true
+relative_files = true
 
 [tool.coverage.report]
 show_missing = true
