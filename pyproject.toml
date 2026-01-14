@@ -41,7 +41,7 @@ major_version_zero = true
 
 [tool.ruff]
 line-length = 88
-target-version = "py312"
+target-version = "py313"
 lint.select = ["E", "F", "I", "N", "UP", "B", "A", "C4", "SIM", "ARG", "ANN"]
 
 [tool.mypy]
