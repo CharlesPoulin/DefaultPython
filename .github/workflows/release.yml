@@ -40,6 +40,11 @@ jobs:
         run: uv run cz bump --yes
         continue-on-error: true
 
+      - name: Get Release Tag
+        id: get_tag
+        if: steps.cz.outcome == 'success'
+        run: echo "REVISION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+
       - name: Push Code and Tags
         if: steps.cz.outcome == 'success'
         run: |
