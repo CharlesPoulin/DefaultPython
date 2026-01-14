@@ -1,126 +1,103 @@
 # DefaultPython
 
-[![CI](https://github.com/USERNAME/REPO/actions/workflows/ci.yml/badge.svg)](https://github.com/USERNAME/REPO/actions/workflows/ci.yml)
+[![CI](https://github.com/CharlesPoulin/DefaultPython/actions/workflows/ci.yml/badge.svg)](https://github.com/CharlesPoulin/DefaultPython/actions/workflows/ci.yml)
 [![Python Version](https://img.shields.io/badge/python-3.13-blue.svg)](https://python.org)
 [![Code Style: ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 
-A Python project managed with [uv](https://docs.astral.sh/uv/).
+A professional Python project template designed for modern development. It uses **[uv](https://docs.astral.sh/uv/)** for ultra-fast dependency management and includes a full suite of code quality tools.
 
-## Quick Start with `uv`
+## 🚀 Getting Started
 
-`uv` is an extremely fast Python package manager and project manager.
-
-### 1. Installation
-If you don't have `uv` installed yet:
-```bash
+### 1. Prerequisites
+You will need `uv` installed. It replaces tools like `pip`, `poetry`, and `virtualenv`.
+```powershell
+# Windows (PowerShell)
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-### 2. Project Setup
-Synchronize the virtual environment and install dependencies:
+### 2. Installation
+Clone the repo and sync dependencies:
+
 ```bash
+# Install all dependencies into a fresh virtual environment
 uv sync
 ```
-*Note: This project also includes a `Makefile`, so you can just run `make install`.*
 
-### 3. Adding Dependencies
-Add a new package to your project:
+### 3. Running the App
 ```bash
-uv add requests
+# Run the command-line entry point
+uv run defaultpython
+
+# Run the API server (FastAPI) with hot-reload
+uv run uvicorn defaultpython.api:app --reload
 ```
-To add a development dependency:
+
+---
+
+## 🛠️ Development Workflow
+
+### Managing Dependencies
+Instead of `pip install`, use `uv` to add packages. This keeps `pyproject.toml` and `uv.lock` in sync.
+
 ```bash
+# Add a production dependency (e.g., pandas)
+uv add pandas
+
+# Add a development tool (e.g., pytest)
 uv add --dev pytest
 ```
 
-### 4. Running the Project
-Run the main script:
-```bash
-uv run defaultpython
-```
-Or use the `Makefile`:
-```bash
-make run
-```
+### Code Quality & Testing
+We use strict tools to maintain high code quality. You should run these before pushing code.
 
-### 5. Running Commands in the Venv
-You can run any command within the context of your project's virtual environment:
-```bash
-uv run python --version
-uv run ruff check .
-```
+| Tool | Purpose | Command |
+| :--- | :--- | :--- |
+| **Ruff** | Lints code and fixes formatting issues. | `task lint` |
+| **Mypy** | Checks static types (like TypeScript for Python). | `task type-check` |
+| **Bandit** | Scans for security vulnerabilities. | `task security` |
+| **Pytest** | Runs your test suite. | `task test` |
 
-### 6. Managing Python Versions
-`uv` can automatically download and manage Python versions for you:
-```bash
-uv python install 3.12
-```
+### Using the Task Runner
+This project uses [Task](https://taskfile.dev/) to simplify commands. It's like a modern `Make`.
 
-### 7. Pre-commit Hooks
-This project uses `pre-commit` to ensure code quality.
-Install the hooks:
 ```bash
-uv run pre-commit install
-```
-Run hooks manually:
-```bash
-uv run pre-commit run --all-files
+# List all available commands
+task
+
+# Format code automatically (fixes imports, spacing, etc.)
+task format
+
+# Run EVERYTHING (Lint, Format, Types, Security, Tests)
+# Run this before you submit a Pull Request!
+task check
 ```
 
-### 8. Docker Support
-Build the container:
-```bash
-docker build -t defaultpython .
-```
-Run the container:
-```bash
-docker run defaultpython
-```
+---
 
-## Editor Support
-- **VS Code**: Recommended settings and extensions are included in `.vscode/`.
-- **EditorConfig**: Standard coding styles are defined in `.editorconfig`.
+## 📂 Project Structure
 
-## Task Runner
-
-This project uses [Task](https://taskfile.dev/) for cross-platform task running (works on Windows, Mac, and Linux).
-
-### Install Task
-```bash
-# Windows (with winget)
-winget install Task.Task
-
-# Mac
-brew install go-task
-
-# Linux
-sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin
+```text
+.
+├── src/                # Source code
+│   └── defaultpython/  # Main package
+├── tests/              # Test suite (mirrors src structure)
+├── .github/            # GitHub Actions (CI/CD workflows)
+├── pyproject.toml      # Project configuration & dependencies
+├── Taskfile.yml        # Task runner definitions
+├── Dockerfile          # Production container setup
+└── uv.lock             # Exact dependency versions (do not edit manually)
 ```
 
-### Available Tasks
-```bash
-task              # Show all available tasks
-task install      # Sync dependencies
-task run          # Run the CLI application
-task run-api      # Run the FastAPI app with hot reload
-task test         # Run tests with coverage
-task lint         # Run ruff linting
-task lint-fix     # Auto-fix linting issues
-task format       # Format code with ruff
-task type-check   # Run mypy type checks
-task security     # Run bandit security checks
-task check        # Run ALL checks (lint, format, type-check, security, test)
-task release      # Bump version and generate changelog
-task clean        # Remove caches and build artifacts
-task docker-build # Build Docker image
-task docker-run   # Run Docker container
-```
+## 🔌 API Documentation
+When the server is running (`task run-api`), you can view the interactive documentation:
+*   **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+*   **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
-> **Note**: A `Makefile` is also included for environments where Task isn't available.
-
-## Automatic Releases
-When you merge to `main`, the `Release` workflow matches your commit messages (e.g., `feat: new thing`, `fix: bug`) and automatically:
-1. Bumps the version.
-2. Updates `CHANGELOG.md`.
-3. Creates a GitHub Release.
+## 🤝 Contributing
+1.  **Environment Variables**: Copy `.env.example` to `.env` if you need to set secrets.
+2.  **Pre-commit Hooks**: We use `pre-commit` to catch errors automatically.
+    ```bash
+    uv run pre-commit install
+    ```
+3.  **Commit Messages**: We use [Conventional Commits](https://www.conventionalcommits.org/) (e.g., `feat: add login`, `fix: crash on modules`). This allows us to generate changelogs automatically.
