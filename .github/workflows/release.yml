@@ -1,0 +1,54 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - 'pyproject.toml'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.13
+
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+
+      - name: Setup Git User
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version and create changelog
+        id: cz
+        run: uv run cz bump --yes
+        continue-on-error: true
+
+      - name: Push Code and Tags
+        if: steps.cz.outcome == 'success'
+        run: |
+          git push origin HEAD:main
+          git push origin --tags
+
+      - name: Create Release
+        if: steps.cz.outcome == 'success'
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: "CHANGELOG.md"
+          tag_name: ${{ env.REVISION }}
