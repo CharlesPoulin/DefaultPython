@@ -1,16 +1,17 @@
 name: Release
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
     branches:
       - main
-    paths-ignore:
-      - 'CHANGELOG.md'
-      - 'pyproject.toml'
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     concurrency: release
     permissions:
       id-token: write
