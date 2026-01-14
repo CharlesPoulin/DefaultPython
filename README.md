@@ -10,13 +10,16 @@ A professional Python project template designed for modern development. It uses 
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
+
 You will need `uv` installed. It replaces tools like `pip`, `poetry`, and `virtualenv`.
+
 ```powershell
 # Windows (PowerShell)
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
 ### 2. Installation
+
 Clone the repo and sync dependencies:
 
 ```bash
@@ -25,6 +28,7 @@ uv sync
 ```
 
 ### 3. Running the App
+
 ```bash
 # Run the command-line entry point
 uv run defaultpython
@@ -38,6 +42,7 @@ uv run uvicorn defaultpython.api:app --reload
 ## 🛠️ Development Workflow
 
 ### Managing Dependencies
+
 Instead of `pip install`, use `uv` to add packages. This keeps `pyproject.toml` and `uv.lock` in sync.
 
 ```bash
@@ -49,6 +54,7 @@ uv add --dev pytest
 ```
 
 ### Code Quality & Testing
+
 We use strict tools to maintain high code quality. You should run these before pushing code.
 
 | Tool | Purpose | Command |
@@ -59,6 +65,7 @@ We use strict tools to maintain high code quality. You should run these before p
 | **Pytest** | Runs your test suite. | `task test` |
 
 ### Using the Task Runner
+
 This project uses [Task](https://taskfile.dev/) to simplify commands. It's like a modern `Make`.
 
 ```bash
@@ -90,14 +97,19 @@ task check
 ```
 
 ## 🔌 API Documentation
+
 When the server is running (`task run-api`), you can view the interactive documentation:
-*   **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
-*   **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
+
+- **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- **ReDoc**: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
 ## 🤝 Contributing
-1.  **Environment Variables**: Copy `.env.example` to `.env` if you need to set secrets.
-2.  **Pre-commit Hooks**: We use `pre-commit` to catch errors automatically.
-    ```bash
-    uv run pre-commit install
-    ```
-3.  **Commit Messages**: We use [Conventional Commits](https://www.conventionalcommits.org/) (e.g., `feat: add login`, `fix: crash on modules`). This allows us to generate changelogs automatically.
+
+1. **Environment Variables**: Copy `.env.example` to `.env` if you need to set secrets.
+2. **Pre-commit Hooks**: We use `pre-commit` to catch errors automatically.
+
+   ```bash
+   uv run pre-commit install
+   ```
+
+3. **Commit Messages**: We use [Conventional Commits](https://www.conventionalcommits.org/) (e.g., `feat: add login`, `fix: crash on modules`). This allows us to generate changelogs automatically.
