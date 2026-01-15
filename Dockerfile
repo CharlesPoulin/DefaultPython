@@ -1,5 +1,8 @@
-# Use a Python image with uv pre-installed
-FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
+# Use standard Python image to avoid ghcr.io auth issues
+FROM python:3.13-slim
+
+# Install uv
+RUN pip install uv
 
 # Set the working directory to /app
 WORKDIR /app

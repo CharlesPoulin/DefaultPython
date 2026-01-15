@@ -17,10 +17,10 @@ def main() -> None:
     """
     load_dotenv()
 
-    app_env: str | None = os.getenv("APP_ENV", "development")
+    app_env: str = os.getenv("APP_ENV", "development")
 
     logger.info("Starting defaultpython in %s mode", app_env)
-    print(f"Hello from defaultpython! Environment: {app_env}")
+    logger.info("Hello from defaultpython! Environment: %s", app_env)
 
 
 if __name__ == "__main__":
