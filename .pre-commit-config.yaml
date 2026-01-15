@@ -20,3 +20,14 @@ repos:
       - id: bandit
         args: ["-r", "src"]
         exclude: ^tests/
+
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.7.3
+    hooks:
+      - id: pip-audit
+        args: ["--progress-spinner", "off"]
+
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets

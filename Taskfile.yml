@@ -67,9 +67,10 @@ tasks:
       - uv run python -m mypy src tests
 
   security:
-    desc: Run bandit security checks
+    desc: Run all security checks (bandit, pip-audit)
     cmds:
       - uv run bandit -r src
+      - task: security-audit
 
   check:
     desc: Run all checks (lint, format, type-check, security, test)
@@ -102,6 +103,21 @@ tasks:
     desc: Run Docker container
     cmds:
       - docker run --rm defaultpython
+
+  docker-up:
+    desc: Start services with docker compose
+    cmds:
+      - docker compose up --build
+
+  docker-down:
+    desc: Stop services
+    cmds:
+      - docker compose down
+
+  security-audit:
+    desc: Check for known security vulnerabilities in dependencies
+    cmds:
+      - uv run pip-audit
 
   pre-commit:
     desc: Run pre-commit hooks on all files
